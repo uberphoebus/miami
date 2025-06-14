@@ -127,7 +127,10 @@ for i, tab in enumerate(tabs):
                     disabled=True,
                 )
         with st.container(border=True):
+            st.markdown("")
             st.markdown("##### 뇽작가 견적 금액")
+            st.divider()
+
             st.markdown("###### 품목")
             st.markdown(
                 f'<div style="display: flex; justify-content: space-between;"><span style="padding-left: 100px">{selected_item}</span><span>{selected_item_price:,} 원</span></div>',
@@ -171,8 +174,7 @@ for i, tab in enumerate(tabs):
                 f'<div style="display: flex; justify-content: space-between;"><span style="padding-left: 100px">{total_print_price}</span><span>{total_price:,} 원</span></div>',
                 unsafe_allow_html=True,
             )
-        st.markdown(
-            "> 총액 = ( 품목 + 옵션 + 작업기한추가금 ) x 수량 x (1 + 작업기한배수)"
-        )
+            st.markdown("")
+            st.markdown("")
 
         st.divider()
