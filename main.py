@@ -1,6 +1,10 @@
 import streamlit as st
 from utils import load_data, save_data
 
+# 레이아웃 설정
+TITLE_WIDTH = "80px"
+CONTENT_WIDTH = "150px"
+
 data = load_data()
 tab_names = list(data.keys())
 
@@ -131,38 +135,37 @@ for i, tab in enumerate(tabs):
             st.markdown("##### 뇽작가 견적 금액")
             st.divider()
 
-            st.markdown("###### 품목")
             st.markdown(
-                f'<div style="display: flex; justify-content: space-between;"><span style="padding-left: 100px">{selected_item}</span><span>{selected_item_price:,} 원</span></div>',
+                f'<div style="display: flex; justify-content: space-between;"><span style="width: {TITLE_WIDTH}"><strong>품목</strong></span><span style="width: {CONTENT_WIDTH}">{selected_item}</span><span>{selected_item_price:,} 원</span></div>',
                 unsafe_allow_html=True,
             )
-            st.markdown("###### 옵션")
+            st.markdown(
+                f'<div style="display: flex; justify-content: space-between;"><span style="width: {TITLE_WIDTH}"><strong>옵션</strong></span><span style="width: {CONTENT_WIDTH}"></span><span></span></div>',
+                unsafe_allow_html=True,
+            )
             for option in selected_options:
                 st.markdown(
-                    f'<div style="display: flex; justify-content: space-between;"><span style="padding-left: 100px">{option}</span><span>{option_price:,} 원</span></div>',
+                    f'<div style="display: flex; justify-content: space-between;"><span style="width: {TITLE_WIDTH}"></span><span style="width: {CONTENT_WIDTH}">{option}</span><span>{option_price:,} 원</span></div>',
                     unsafe_allow_html=True,
                 )
-            st.markdown("###### 폼목 계")
+            st.markdown("")
             item_sum = selected_item_price + sum(selected_option_prices)
             st.markdown(
-                f'<div style="display: flex; justify-content: space-between;"><span style="padding-left: 100px"></span><span>{item_sum:,} 원</span></div>',
+                f'<div style="display: flex; justify-content: space-between;"><span style="width: {TITLE_WIDTH}"><strong>품목 계</strong></span><span style="width: {CONTENT_WIDTH}"></span><span>{item_sum:,} 원</span></div>',
                 unsafe_allow_html=True,
             )
             st.divider()
 
-            st.markdown("###### 수량")
             st.markdown(
-                f'<div style="display: flex; justify-content: space-between;"><span style="padding-left: 100px"></span><span>{selected_quantity}개</span></div>',
+                f'<div style="display: flex; justify-content: space-between;"><span style="width: {TITLE_WIDTH}"><strong>수량</strong></span><span style="width: {CONTENT_WIDTH}"></span><span>{selected_quantity}개</span></div>',
                 unsafe_allow_html=True,
             )
-            st.markdown("###### 작업기한")
             st.markdown(
-                f'<div style="display: flex; justify-content: space-between;"><span style="padding-left: 100px">{selected_work_period}</span><span>{selected_work_period_price:,} 원 / {selected_work_period_multiplier}%</span></div>',
+                f'<div style="display: flex; justify-content: space-between;"><span style="width: {TITLE_WIDTH}"><strong>작업기한</strong></span><span style="width: {CONTENT_WIDTH}">{selected_work_period}</span><span>{selected_work_period_price:,} 원 / {selected_work_period_multiplier}%</span></div>',
                 unsafe_allow_html=True,
             )
             st.divider()
 
-            st.markdown("###### 총액")
             multiplier_print = 1 + selected_work_period_multiplier * 0.01
             total_price = int(
                 (item_sum + selected_work_period_price)
@@ -171,7 +174,7 @@ for i, tab in enumerate(tabs):
             )
             total_print_price = f"{item_sum:,} 원 x {selected_quantity} 개 x {int(multiplier_print*100)}%"
             st.markdown(
-                f'<div style="display: flex; justify-content: space-between;"><span style="padding-left: 100px">{total_print_price}</span><span>{total_price:,} 원</span></div>',
+                f'<div style="display: flex; justify-content: space-between;"><span style="width: {TITLE_WIDTH}"><strong>총액</strong></span><span style="width: {CONTENT_WIDTH}">{total_print_price}</span><span>{total_price:,} 원</span></div>',
                 unsafe_allow_html=True,
             )
             st.markdown("")
