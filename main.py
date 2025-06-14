@@ -8,6 +8,14 @@ st.set_page_config(page_title="뇽작가 견적서", page_icon=":tada:")
 
 st.title("뇽작가 견적서")
 
+selected_item = None
+selected_item_price = 0
+selected_options = []
+selected_option_prices = []
+selected_work_period = None
+selected_work_period_price = 0
+selected_work_period_multiplier = 0
+
 tabs = st.tabs(tab_names)
 
 for i, tab in enumerate(tabs):
@@ -119,24 +127,52 @@ for i, tab in enumerate(tabs):
                     disabled=True,
                 )
         with st.container(border=True):
-            col1, col2 = st.columns(2)
-            with col1:
-                st.markdown("###### 총 금액")
-                pass
-            with col2:
-                total_price = (
-                    (
-                        selected_item_price
-                        + sum(selected_option_prices)
-                        + selected_work_period_price
-                    )
-                    * selected_quantity
-                    * (1 + selected_work_period_multiplier * 0.01)
+            st.markdown("##### 뇽작가 견적 금액")
+            st.markdown("###### 품목")
+            st.markdown(
+                f'<div style="display: flex; justify-content: space-between;"><span style="padding-left: 100px">{selected_item}</span><span>{selected_item_price:,} 원</span></div>',
+                unsafe_allow_html=True,
+            )
+            st.markdown("###### 옵션")
+            for option in selected_options:
+                st.markdown(
+                    f'<div style="display: flex; justify-content: space-between;"><span style="padding-left: 100px">{option}</span><span>{option_price:,} 원</span></div>',
+                    unsafe_allow_html=True,
                 )
-                total_price = int(total_price)
-                st.button(f"{total_price:,}원", key=f"add_total_{tab_names[i]}")
+            st.markdown("###### 폼목 계")
+            item_sum = selected_item_price + sum(selected_option_prices)
+            st.markdown(
+                f'<div style="display: flex; justify-content: space-between;"><span style="padding-left: 100px"></span><span>{item_sum:,} 원</span></div>',
+                unsafe_allow_html=True,
+            )
+            st.divider()
+
+            st.markdown("###### 수량")
+            st.markdown(
+                f'<div style="display: flex; justify-content: space-between;"><span style="padding-left: 100px"></span><span>{selected_quantity}개</span></div>',
+                unsafe_allow_html=True,
+            )
+            st.markdown("###### 작업기한")
+            st.markdown(
+                f'<div style="display: flex; justify-content: space-between;"><span style="padding-left: 100px">{selected_work_period}</span><span>{selected_work_period_price:,} 원 / {selected_work_period_multiplier}%</span></div>',
+                unsafe_allow_html=True,
+            )
+            st.divider()
+
+            st.markdown("###### 총액")
+            multiplier_print = 1 + selected_work_period_multiplier * 0.01
+            total_price = int(
+                (item_sum + selected_work_period_price)
+                * selected_quantity
+                * multiplier_print
+            )
+            total_print_price = f"{item_sum:,} 원 x {selected_quantity} 개 x {int(multiplier_print*100)}%"
+            st.markdown(
+                f'<div style="display: flex; justify-content: space-between;"><span style="padding-left: 100px">{total_print_price}</span><span>{total_price:,} 원</span></div>',
+                unsafe_allow_html=True,
+            )
         st.markdown(
-            "> 총 금액 = ( 품목 + 옵션 + 작업기한추가금 ) x 수량 x (1 + 작업기한배수)"
+            "> 총액 = ( 품목 + 옵션 + 작업기한추가금 ) x 수량 x (1 + 작업기한배수)"
         )
 
         st.divider()
