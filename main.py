@@ -4,9 +4,9 @@ from utils import load_data, save_data
 data = load_data()
 tab_names = list(data.keys())
 
-st.set_page_config(page_title="견적서", page_icon=":tada:")
+st.set_page_config(page_title="뇽작가 견적서", page_icon=":tada:")
 
-st.title("견적서")
+st.title("뇽작가 견적서")
 
 tabs = st.tabs(tab_names)
 
