@@ -1,7 +1,4 @@
 import streamlit as st
-
-st.title("Hello from miami!")
-import streamlit as st
 from utils import load_data, save_data
 
 data = load_data()
