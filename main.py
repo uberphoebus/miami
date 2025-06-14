@@ -1,6 +1,3 @@
-def main():
-    print("Hello from miami!")
+import streamlit as st
 
-
-if __name__ == "__main__":
-    main()
+st.title("Hello from miami!")
