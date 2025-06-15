@@ -39,7 +39,7 @@ for i, tab in enumerate(tabs):
                 )
                 st.markdown("###### 선택 품목 가격")
                 st.button(
-                    f"{selected_item_price:,}원",
+                    f"{int(selected_item_price):,}원",
                     key=f"add_{tab_names[i]}",
                     disabled=True,
                 )
@@ -64,7 +64,7 @@ for i, tab in enumerate(tabs):
                     option_price = next(
                         opt["가격"] for opt in options if opt["이름"] == o
                     )
-                    st.text(f"{option_price:,}원")
+                    st.text(f"{int(option_price):,}원")
                     selected_option_prices.append(option_price)
             col1, col2 = st.columns(2)
             with col1:
@@ -72,7 +72,7 @@ for i, tab in enumerate(tabs):
             with col2:
                 option_sum = sum(selected_option_prices)
                 st.button(
-                    f"{option_sum:,}원",
+                    f"{int(option_sum):,}원",
                     key=f"add_option_{tab_names[i]}",
                     disabled=True,
                 )
@@ -119,7 +119,7 @@ for i, tab in enumerate(tabs):
                     if work_period["이름"] == selected_work_period
                 )
                 st.button(
-                    f"추가금 {selected_work_period_price:,}원 / 총액의 {selected_work_period_multiplier}% 추가",
+                    f"추가금 {int(selected_work_period_price):,}원 / 총액의 {selected_work_period_multiplier}% 추가",
                     key=f"add_work_period_{tab_names[i]}",
                     disabled=True,
                 )
@@ -139,13 +139,13 @@ for i, tab in enumerate(tabs):
             )
             for option in selected_options:
                 st.markdown(
-                    f'<div style="display: flex; justify-content: space-between;"><span style="width: {TITLE_WIDTH}"></span><span style="width: {CONTENT_WIDTH}">{option}</span><span>{option_price:,} 원</span></div>',
+                    f'<div style="display: flex; justify-content: space-between;"><span style="width: {TITLE_WIDTH}"></span><span style="width: {CONTENT_WIDTH}">{option}</span><span>{int(option_price):,} 원</span></div>',
                     unsafe_allow_html=True,
                 )
             st.markdown("")
             item_sum = selected_item_price + sum(selected_option_prices)
             st.markdown(
-                f'<div style="display: flex; justify-content: space-between;"><span style="width: {TITLE_WIDTH}"><strong>품목 계</strong></span><span style="width: {CONTENT_WIDTH}"></span><span>{item_sum:,} 원</span></div>',
+                f'<div style="display: flex; justify-content: space-between;"><span style="width: {TITLE_WIDTH}"><strong>품목 계</strong></span><span style="width: {CONTENT_WIDTH}"></span><span>{int(item_sum):,} 원</span></div>',
                 unsafe_allow_html=True,
             )
             st.divider()
@@ -166,9 +166,9 @@ for i, tab in enumerate(tabs):
                 * selected_quantity
                 * multiplier_print
             )
-            total_print_price = f"{item_sum:,} 원 x {selected_quantity} 개 x {int(multiplier_print*100)}%"
+            total_print_price = f"{int(item_sum):,} 원 x {selected_quantity} 개 x {int(multiplier_print*100)}%"
             st.markdown(
-                f'<div style="display: flex; justify-content: space-between;"><span style="width: {TITLE_WIDTH}"><strong>총액</strong></span><span style="width: {CONTENT_WIDTH}">{total_print_price}</span><span>{total_price:,} 원</span></div>',
+                f'<div style="display: flex; justify-content: space-between;"><span style="width: {TITLE_WIDTH}"><strong>총액</strong></span><span style="width: {CONTENT_WIDTH}">{total_print_price}</span><span>{int(total_price):,} 원</span></div>',
                 unsafe_allow_html=True,
             )
             st.markdown("")
