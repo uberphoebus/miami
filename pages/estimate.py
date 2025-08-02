@@ -182,7 +182,7 @@ for i, tab in enumerate(tabs):
                     )
                     option_string += f" + {option}({option_price:,}원)"
             st.code(
-                f"( {selected_item}({selected_item_price:,}원){option_string} ) x {selected_quantity}개 x 1{selected_work_period_multiplier}%({selected_work_period}) = {int(total_price):,}원"
+                f"( {selected_item}({selected_item_price:,}원){option_string} ) x {selected_quantity}개 x 1{selected_work_period_multiplier:02d}%({selected_work_period}) = {int(total_price):,}원"
             )
 
         st.divider()
