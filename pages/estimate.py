@@ -173,4 +173,16 @@ for i, tab in enumerate(tabs):
             )
             st.markdown("")
 
+            st.divider()
+            option_string = ""
+            if selected_options:
+                for option in selected_options:
+                    option_price = next(
+                        opt["가격"] for opt in options if opt["이름"] == option
+                    )
+                    option_string += f" + {option}({option_price:,}원)"
+            st.code(
+                f"( {selected_item}({selected_item_price:,}원){option_string} ) x {selected_quantity}개 x {selected_work_period_multiplier}%({selected_work_period}) = {int(total_price):,}원"
+            )
+
         st.divider()
